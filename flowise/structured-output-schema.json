@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "SEO title up to 70 characters."
+    },
+    "meta_description": {
+      "type": "string",
+      "description": "SEO meta description, ideally 120-160 characters."
+    },
+    "h1": {
+      "type": "string",
+      "description": "Page H1."
+    },
+    "description": {
+      "type": "string",
+      "description": "Product description in 2-4 sentences."
+    },
+    "bullets": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 6,
+      "items": {
+        "type": "string"
+      },
+      "description": "Short product benefits."
+    }
+  },
+  "required": ["title", "meta_description", "h1", "description", "bullets"],
+  "additionalProperties": false
+}

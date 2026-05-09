@@ -1,0 +1,47 @@
+{
+  "name": "SEO Product Description Generator",
+  "type": "chatflow",
+  "runtimeVariables": ["product_name", "category", "keywords"],
+  "nodes": [
+    {
+      "label": "Prompt Template",
+      "type": "promptTemplate",
+      "inputVariables": ["product_name", "category", "keywords"],
+      "templateFile": "prompt-template.md"
+    },
+    {
+      "label": "Chat Model",
+      "type": "chatOpenAI",
+      "params": {
+        "modelName": "gpt-4o-mini",
+        "temperature": 0.3,
+        "streaming": true
+      }
+    },
+    {
+      "label": "Structured Output Parser",
+      "type": "structuredOutputParser",
+      "schemaFile": "structured-output-schema.json"
+    },
+    {
+      "label": "LLM Chain",
+      "type": "llmChain",
+      "connections": {
+        "prompt": "Prompt Template",
+        "llm": "Chat Model",
+        "outputParser": "Structured Output Parser"
+      }
+    }
+  ],
+  "predictionApiPayload": {
+    "question": "product_name: ...\ncategory: ...\nkeywords: ...",
+    "streaming": true,
+    "overrideConfig": {
+      "vars": {
+        "product_name": "Кофемолка Burr Pro",
+        "category": "Кофе и аксессуары",
+        "keywords": "кофемолка, жерновая кофемолка, для эспрессо"
+      }
+    }
+  }
+}
